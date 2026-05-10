@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  // ===== サーバーのレスポンスのエラーを整理 =====
   const showServerErrors = (data) => {
     const errorSummary = contactSection.querySelector(".js-lgcc-error-summary");
 
@@ -155,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  // ===== 画面に出てるエラーをリセット =====
   const clearServerErrors = () => {
     const errorSummary = contactSection.querySelector(".js-lgcc-error-summary");
 
@@ -174,7 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ===== 確認画面へ進む =====
-
   confirmBtn.addEventListener("click", () => {
     clearServerErrors();
     // HTMLの required / type="email" などの標準バリデーションを使う
@@ -202,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ===== 入力画面へ戻る =====
-
   backBtn.addEventListener("click", () => {
     confirmStep.hidden = true;
     inputStep.hidden = false;
@@ -252,16 +252,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // 成功時：確認画面を閉じて、完了画面を表示する
+      confirmStep.hidden = true;
+
+      if (thanksStep) {
+        thanksStep.hidden = false;
+      }
+
+      scrollToSection(contactSection);
+
       console.log("成功", result);
     } catch (error) {
       console.error(error);
     }
-
-    //     6. response.json() を取得
-    //     7. success なら confirmStep を hidden、thanksStep を表示
-    //     8. error ならメッセージ表示
   });
-  //
-  // 現時点では submitBtn / thanksStep は未使用。
-  // fetch送信は PHP側 ajax-handler.php 実装後に接続する。
 });

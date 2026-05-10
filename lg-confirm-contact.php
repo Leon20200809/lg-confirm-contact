@@ -33,5 +33,8 @@ require_once LGCC_PATH . 'includes/enqueue.php';
 // バリデーション処理ファイルを読み込む
 require_once LGCC_PATH . 'includes/validate.php';
 
+// メール送信処理ファイルを読み込む
+require_once LGCC_PATH . 'includes/mailer.php';
+
 // Ajax送信処理ファイルを読み込む
 require_once LGCC_PATH . 'includes/ajax-handler.php';

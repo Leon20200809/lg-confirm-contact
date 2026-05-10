@@ -52,10 +52,21 @@ function lgcc_handle_contact_send(): void
         );
     }
 
+    $mail_sent = lgcc_send_admin_mail($form_data);
+
+    if (!$mail_sent) {
+        wp_send_json_error(
+            [
+                'message' => 'メール送信に失敗しました。',
+            ],
+            500,
+            JSON_UNESCAPED_UNICODE
+        );
+    }
+
     wp_send_json_success(
         [
-            'message'  => 'バリデーションを通過しました。',
-            'received' => $form_data,
+            'message' => '送信が完了しました。',
         ],
         200,
         JSON_UNESCAPED_UNICODE
