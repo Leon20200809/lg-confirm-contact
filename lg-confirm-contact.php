@@ -12,17 +12,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * ------------------------------------------------------------
- * LG Confirm Contact : Main Plugin File
- * ------------------------------------------------------------
- * 目的：
- *   - WordPressにプラグインとして認識させる
- *   - プラグイン内で使う基本定数を定義する
- *   - MVPでは、まず「有効化できる状態」までを勝利条件にする
- * ------------------------------------------------------------
- */
-
 // プラグインのバージョン
 define('LGCC_VERSION', '0.1.0');
 
@@ -40,3 +29,9 @@ require_once LGCC_PATH . 'includes/shortcode.php';
 
 // アセット読み込みファイルを読み込む
 require_once LGCC_PATH . 'includes/enqueue.php';
+
+// バリデーション処理ファイルを読み込む
+require_once LGCC_PATH . 'includes/validate.php';
+
+// Ajax送信処理ファイルを読み込む
+require_once LGCC_PATH . 'includes/ajax-handler.php';

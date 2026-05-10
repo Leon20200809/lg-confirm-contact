@@ -120,9 +120,63 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const showServerErrors = (data) => {
+    const errorSummary = contactSection.querySelector(".js-lgcc-error-summary");
+
+    const errorFields = {
+      name: contactSection.querySelector(".js-lgcc-error-name"),
+      email: contactSection.querySelector(".js-lgcc-error-email"),
+      subject: contactSection.querySelector(".js-lgcc-error-subject"),
+      message: contactSection.querySelector(".js-lgcc-error-message"),
+      privacy: contactSection.querySelector(".js-lgcc-error-privacy")
+    };
+
+    if (errorSummary) {
+      errorSummary.textContent =
+        data?.message || "入力内容を確認してください。";
+      errorSummary.hidden = false;
+    }
+
+    const errors = data?.errors || {};
+
+    Object.entries(errorFields).forEach(([fieldName, element]) => {
+      if (!element) return;
+
+      const errorMessage = errors[fieldName];
+
+      if (errorMessage) {
+        element.textContent = errorMessage;
+        element.hidden = false;
+        return;
+      }
+
+      element.textContent = "";
+      element.hidden = true;
+    });
+  };
+
+  const clearServerErrors = () => {
+    const errorSummary = contactSection.querySelector(".js-lgcc-error-summary");
+
+    const errorMessages = contactSection.querySelectorAll(
+      ".lgcc-error-message"
+    );
+
+    if (errorSummary) {
+      errorSummary.textContent = "";
+      errorSummary.hidden = true;
+    }
+
+    errorMessages.forEach((element) => {
+      element.textContent = "";
+      element.hidden = true;
+    });
+  };
+
   // ===== 確認画面へ進む =====
 
   confirmBtn.addEventListener("click", () => {
+    clearServerErrors();
     // HTMLの required / type="email" などの標準バリデーションを使う
     if (!form.checkValidity()) {
       form.reportValidity();
@@ -156,18 +210,57 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToSection(contactSection);
   });
 
-  // ===== 今後実装：送信処理 =====
-  //
-  // submitBtn.addEventListener("click", async () => {
-  //     1. 連打防止
-  //     2. getFormValues() で入力値取得
-  //     3. FormData を作成
-  //     4. action / nonce / name / email / subject / message / privacy を詰める
-  //     5. fetch(window.lgccContact.ajaxurl, { method: "POST", body: formData })
-  //     6. response.json() を取得
-  //     7. success なら confirmStep を hidden、thanksStep を表示
-  //     8. error ならメッセージ表示
-  // });
+  // ===== 送信ボタン：送信処理 =====
+  submitBtn.addEventListener("click", async () => {
+    // 1. 連打防止
+    if (submitBtn.disabled) return;
+
+    // 2. getFormValues() で入力値取得
+    const formValues = getFormValues();
+
+    // 3. FormData を作成
+    const formData = new FormData();
+
+    // 4. action / nonce / name / email / subject / message / privacy を詰める
+    formData.append("action", "lgcc_send_contact");
+    formData.append("nonce", window.lgccContact.nonce);
+
+    // ユーザー入力詰め込み
+    formData.append("name", formValues.name);
+    formData.append("email", formValues.email);
+    formData.append("subject", formValues.subject);
+    formData.append("message", formValues.message);
+    formData.append("privacy", formValues.privacy);
+
+    // 5. fetch(window.lgccContact.ajaxurl, { method: "POST", body: formData })
+    try {
+      const response = await fetch(window.lgccContact.ajaxurl, {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        confirmStep.hidden = true;
+        inputStep.hidden = false;
+
+        showServerErrors(result.data);
+
+        scrollToSection(contactSection);
+
+        return;
+      }
+
+      console.log("成功", result);
+    } catch (error) {
+      console.error(error);
+    }
+
+    //     6. response.json() を取得
+    //     7. success なら confirmStep を hidden、thanksStep を表示
+    //     8. error ならメッセージ表示
+  });
   //
   // 現時点では submitBtn / thanksStep は未使用。
   // fetch送信は PHP側 ajax-handler.php 実装後に接続する。

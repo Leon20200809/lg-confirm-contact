@@ -4,7 +4,7 @@
  * enqueue.php
  *
  * LG Confirm Contact で使用するCSS・JSを読み込む。
- * MVPでは、まずJSが読み込まれることを勝利条件にする。
+ * 
  */
 
 if (!defined('ABSPATH')) {
@@ -31,6 +31,16 @@ function lgcc_enqueue_assets(): void
         [],
         LGCC_VERSION,
         true
+    );
+
+    // 1.対象のJSスクリプト 2.JS 側で使うオブジェクト名
+    wp_localize_script(
+        'lgcc-contact-script',
+        'lgccContact',
+        [
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('lgcc_contact_nonce'),
+        ]
     );
 }
 

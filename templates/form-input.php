@@ -14,6 +14,8 @@ if (!defined('ABSPATH')) {
 
 <div class="lgcc-step lgcc-step--input">
     <form class="lgcc-form" action="" method="post">
+        <div class="lgcc-error-summary js-lgcc-error-summary" hidden></div>
+
         <div class="lgcc-row">
             <label class="lgcc-row__label" for="lgcc-name">お名前</label>
             <input
@@ -23,6 +25,8 @@ if (!defined('ABSPATH')) {
                 name="name"
                 placeholder="お名前"
                 required>
+
+            <p class="lgcc-error-message js-lgcc-error-name" hidden></p>
         </div>
 
         <div class="lgcc-row">
@@ -34,6 +38,8 @@ if (!defined('ABSPATH')) {
                 name="email"
                 placeholder="メールアドレス"
                 required>
+
+            <p class="lgcc-error-message js-lgcc-error-email" hidden></p>
         </div>
 
         <div class="lgcc-row">
@@ -50,6 +56,8 @@ if (!defined('ABSPATH')) {
                     <span>業務システム開発のご相談</span>
                 </label>
             </div>
+
+            <p class="lgcc-error-message js-lgcc-error-subject" hidden></p>
         </div>
 
         <div class="lgcc-row">
@@ -60,6 +68,8 @@ if (!defined('ABSPATH')) {
                 name="message"
                 placeholder="ご希望内容・お困りごと・ご予算などをご記入ください。"
                 required></textarea>
+
+            <p class="lgcc-error-message js-lgcc-error-message" hidden></p>
         </div>
 
         <div class="lgcc-row lgcc-row--privacy">
@@ -74,6 +84,8 @@ if (!defined('ABSPATH')) {
                     </span>
                 </label>
             </div>
+
+            <p class="lgcc-error-message js-lgcc-error-privacy" hidden></p>
         </div>
 
         <div class="lgcc-actions">
