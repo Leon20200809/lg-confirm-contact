@@ -1,0 +1,110 @@
+/**
+ * LG Confirm Contact
+ *
+ * 目的：
+ *   - 親テーマのフォント・色・世界観はできるだけ尊重する
+ *   - プラグイン側ではフォームとして破綻しない最低限の骨格だけ整える
+ */
+
+.lgcc-contact {
+  --lgcc-form-max-width: 720px;
+  --lgcc-space-xs: 0.5rem;
+  --lgcc-space-sm: 0.75rem;
+  --lgcc-space-md: 1rem;
+  --lgcc-space-lg: 1.25rem;
+  --lgcc-space-xl: 1.5rem;
+  --lgcc-space-2xl: 2rem;
+  --lgcc-control-min-height: 2.75rem;
+  --lgcc-textarea-min-height: 10rem;
+
+  width: 100%;
+}
+
+.lgcc-contact__inner {
+  max-width: var(--lgcc-form-max-width);
+  margin-inline: auto;
+  padding-block: var(--lgcc-space-2xl);
+  padding-inline: var(--lgcc-space-md);
+}
+
+.lgcc-contact__title {
+  margin-bottom: var(--lgcc-space-xl);
+}
+
+.lgcc-step {
+  width: 100%;
+}
+
+.lgcc-form {
+  display: grid;
+  gap: var(--lgcc-space-lg);
+}
+
+.lgcc-row {
+  display: grid;
+  gap: var(--lgcc-space-xs);
+}
+
+.lgcc-row__label {
+  margin: 0;
+  font-weight: 700;
+}
+
+.lgcc-row__control {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: var(--lgcc-space-sm) 0.875rem;
+  font: inherit;
+}
+
+textarea.lgcc-row__control {
+  min-height: var(--lgcc-textarea-min-height);
+  resize: vertical;
+}
+
+.lgcc-radio-group {
+  display: grid;
+  gap: var(--lgcc-space-xs);
+}
+
+.lgcc-radio-option,
+.lgcc-privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--lgcc-space-xs);
+}
+
+.lgcc-row__value {
+  min-height: 1.5em;
+  word-break: break-word;
+}
+
+.lgcc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lgcc-space-sm);
+  margin-top: var(--lgcc-space-md);
+}
+
+.lgcc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--lgcc-control-min-height);
+  padding: 0.625rem var(--lgcc-space-lg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.lgcc-thanks {
+  padding-block: var(--lgcc-space-2xl);
+}
+
+.lgcc-thanks__title {
+  margin-bottom: var(--lgcc-space-md);
+}
+
+.lgcc-thanks__text {
+  margin: 0;
+}

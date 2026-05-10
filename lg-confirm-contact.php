@@ -34,3 +34,9 @@ define('LGCC_PATH', plugin_dir_path(__FILE__));
 
 // プラグインフォルダのURL
 define('LGCC_URL', plugin_dir_url(__FILE__));
+
+// ショートコード登録ファイルを読み込む
+require_once LGCC_PATH . 'includes/shortcode.php';
+
+// アセット読み込みファイルを読み込む
+require_once LGCC_PATH . 'includes/enqueue.php';
